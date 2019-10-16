@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import {Directive, ElementRef, HostListener, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
@@ -16,13 +16,15 @@ import {
   selector: '[ng-virtual-keyboard]'
 })
 
-export class NgVirtualKeyboardDirective {
+export class NgVirtualKeyboardDirective implements OnChanges {
   private opened = false;
   private focus = true;
 
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
   @Input('ng-virtual-keyboard-type') type: string;
+  @Input('ng-virtual-keyboard-change') change: string;
+
 
   @HostListener('window:blur')
   onWindowBlur() {
@@ -56,6 +58,10 @@ export class NgVirtualKeyboardDirective {
     private element: ElementRef,
     private dialog: MatDialog,
   ) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.dialog.closeAll();
+  }
 
   /**
    * Method to open virtual keyboard

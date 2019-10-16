@@ -80,6 +80,7 @@ export class AppComponent {
   ];
 
   public invalid = false;
+  public isVisible = false;
 
   get customLayoutValue() {
     return JSON.stringify(this.customLayout, null, 2);
@@ -93,5 +94,13 @@ export class AppComponent {
     } catch (error) {
       this.invalid = true;
     }
+  }
+
+  public closeKeyboard() {
+    this.isVisible = true;
+
+    setTimeout(() => {
+      this.isVisible = false;
+    }, 0);
   }
 }

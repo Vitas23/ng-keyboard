@@ -59,6 +59,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
 /&gt;</code></pre>
     </div>
 
+    <button class="btn" (click)="closeKeyboard()">Close keyboard</button>
 
     <div fxLayout="column wrap">
       <h2>Demos</h2>
@@ -99,6 +100,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
             <input value=""
               matInput
               ng-virtual-keyboard
+              [ng-virtual-keyboard-change]="isVisible"
               [ng-virtual-keyboard-layout]="layout.layout"
             />
           </mat-form-field>
