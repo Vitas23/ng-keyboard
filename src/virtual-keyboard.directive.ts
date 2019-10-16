@@ -11,6 +11,8 @@ import {
   numericKeyboard,
   phoneKeyboard
 } from './layouts';
+import {VirtualKeyboardService} from './virtual-keyboard.service';
+import {Subscription} from 'rxjs';
 
 @Directive({
   selector: '[ng-virtual-keyboard]'
@@ -19,6 +21,7 @@ import {
 export class NgVirtualKeyboardDirective {
   private opened = false;
   private focus = true;
+  private virtualKeyboardSubscription: Subscription;
 
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
@@ -56,7 +59,15 @@ export class NgVirtualKeyboardDirective {
   public constructor(
     private element: ElementRef,
     private dialog: MatDialog,
-  ) { }
+    private virtualKeyboardService: VirtualKeyboardService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.virtualKeyboardSubscription = this.virtualKeyboardService.next$.subscribe((next: boolean) => {
+      this.emitter.emit('go-next');
+    });
+  }
 
   /**
    * Method to open virtual keyboard

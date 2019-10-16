@@ -99,6 +99,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
             <input value=""
               matInput
               ng-virtual-keyboard
+                   (ng-virtual-keyboard-emitter)="testevent($event)"
               [ng-virtual-keyboard-layout]="layout.layout"
             />
           </mat-form-field>

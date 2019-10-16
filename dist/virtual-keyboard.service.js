@@ -55,7 +55,7 @@ var VirtualKeyboardService = /** @class */ (function () {
      * Click for CapsLock
      */
     VirtualKeyboardService.prototype.clickNext = function () {
-        this.next$.next(this.capsLock);
+        this.next$.next(true);
     };
     /**
      * Setter for caret position value.

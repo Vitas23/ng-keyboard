@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
 import { keyboardCapsLockLayout, KeyboardLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
 import { KeyPressInterface } from './key-press.interface';
+
 
 @Component({
   selector: 'virtual-keyboard',
@@ -138,9 +139,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
       this.layout = keyboardCapsLockLayout(this.layout, capsLock);
     });
 
-    this.virtualKeyboardService.next$.subscribe((next: boolean) => {
-      console.log('xxxxx');
-    });
+
 
     this.virtualKeyboardService.caretPosition$.subscribe((caretPosition: number) => {
       this.caretPosition = caretPosition;
@@ -287,7 +286,8 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
       case 'CapsLock':
         this.virtualKeyboardService.toggleCapsLock();
         break;
-      case 'Dalej':
+      case 'Next':
+        this.close();
         this.virtualKeyboardService.clickNext();
         break;
       case 'Shift':

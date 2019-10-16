@@ -55,7 +55,7 @@ export class VirtualKeyboardService {
    * Click for CapsLock
    */
   public clickNext() {
-    this.next$.next(this.capsLock);
+    this.next$.next(true);
   }
 
   /**

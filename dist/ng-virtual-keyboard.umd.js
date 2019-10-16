@@ -106,7 +106,7 @@ exports.extendedKeyboard = [
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ć', 'ę'],
     ['z', 'c', 'v', 'b', 'n', 'm', 'ź', 'ż', 'ł', 'ó', 'ń', 'ś'],
-    ['@', '-', 'x', 'SpaceBar:4', '#', ',', '.', 'Dalej:2'],
+    ['@', '-', 'x', 'SpaceBar:4', '#', ',', '.', 'Next:2'],
 ];
 exports.extendedNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'Backspace:2'],
@@ -135,6 +135,7 @@ exports.specialKeys = [
     'SpaceBar',
     'Spacer',
     'Shift',
+    'Next',
 ];
 exports.specialKeyIcons = {
     Enter: 'keyboard_return',
@@ -235,7 +236,6 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         this.dialog = dialog;
         this.opened = false;
         this.focus = true;
-        this.emitter = new core_1.EventEmitter();
     }
     NgVirtualKeyboardDirective.prototype.onWindowBlur = function () {
         this.focus = false;
@@ -335,10 +335,6 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         __metadata("design:type", String)
     ], NgVirtualKeyboardDirective.prototype, "type", void 0);
     __decorate([
-        core_1.Output('ng-virtual-keyboard-emitter'),
-        __metadata("design:type", Object)
-    ], NgVirtualKeyboardDirective.prototype, "emitter", void 0);
-    __decorate([
         core_1.HostListener('window:blur'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -404,6 +400,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     function VirtualKeyboardComponent(dialogRef, virtualKeyboardService) {
         this.dialogRef = dialogRef;
         this.virtualKeyboardService = virtualKeyboardService;
+        this.emitter = new core_1.EventEmitter();
         this.shift = false;
     }
     VirtualKeyboardComponent_1 = VirtualKeyboardComponent;
@@ -448,7 +445,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
         });
         this.virtualKeyboardService.next$.subscribe(function (next) {
-            console.log('xxxxx');
+            _this.emitter.next('close-keyboard');
         });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
@@ -576,7 +573,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
                 break;
-            case 'Dalej':
+            case 'Next':
                 this.virtualKeyboardService.clickNext();
                 break;
             case 'Shift':
@@ -616,6 +613,10 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         core_1.ViewChild('keyboardInput'),
         __metadata("design:type", core_1.ElementRef)
     ], VirtualKeyboardComponent.prototype, "keyboardInput", void 0);
+    __decorate([
+        core_1.Output('ng-virtual-keyboard-emitter'),
+        __metadata("design:type", Object)
+    ], VirtualKeyboardComponent.prototype, "emitter", void 0);
     VirtualKeyboardComponent = VirtualKeyboardComponent_1 = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard',
@@ -692,7 +693,7 @@ var VirtualKeyboardService = /** @class */ (function () {
      * Click for CapsLock
      */
     VirtualKeyboardService.prototype.clickNext = function () {
-        this.next$.next(this.capsLock);
+        this.next$.next(true);
     };
     /**
      * Setter for caret position value.

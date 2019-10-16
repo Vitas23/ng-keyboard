@@ -94,4 +94,8 @@ export class AppComponent {
       this.invalid = true;
     }
   }
+  
+  public testevent(event) {
+    console.log(event);
+  }
 }
