@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { KeyboardLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
@@ -7,7 +7,6 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     dialogRef: MatDialogRef<VirtualKeyboardComponent>;
     private virtualKeyboardService;
     keyboardInput: ElementRef;
-    emitter: EventEmitter<{}>;
     inputElement: ElementRef;
     layout: KeyboardLayout;
     placeholder: string;

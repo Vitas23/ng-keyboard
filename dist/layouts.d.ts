@@ -15,6 +15,7 @@ export declare const specialKeyIcons: {
 };
 export declare const specialKeyTexts: {
     CapsLock: string;
+    Next: string;
 };
 export declare const notDisabledSpecialKeys: string[];
 /**

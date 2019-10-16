@@ -23,7 +23,6 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     function VirtualKeyboardComponent(dialogRef, virtualKeyboardService) {
         this.dialogRef = dialogRef;
         this.virtualKeyboardService = virtualKeyboardService;
-        this.emitter = new core_1.EventEmitter();
         this.shift = false;
     }
     VirtualKeyboardComponent_1 = VirtualKeyboardComponent;
@@ -66,9 +65,6 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         });
         this.virtualKeyboardService.capsLock$.subscribe(function (capsLock) {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
-        });
-        this.virtualKeyboardService.next$.subscribe(function (next) {
-            _this.emitter.next('close-keyboard');
         });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
@@ -197,6 +193,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 this.virtualKeyboardService.toggleCapsLock();
                 break;
             case 'Next':
+                this.close();
                 this.virtualKeyboardService.clickNext();
                 break;
             case 'Shift':
@@ -236,10 +233,6 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         core_1.ViewChild('keyboardInput'),
         __metadata("design:type", core_1.ElementRef)
     ], VirtualKeyboardComponent.prototype, "keyboardInput", void 0);
-    __decorate([
-        core_1.Output('ng-virtual-keyboard-emitter'),
-        __metadata("design:type", Object)
-    ], VirtualKeyboardComponent.prototype, "emitter", void 0);
     VirtualKeyboardComponent = VirtualKeyboardComponent_1 = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard',

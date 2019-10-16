@@ -56,7 +56,8 @@ exports.specialKeyIcons = {
     Shift: 'keyboard_capslock'
 };
 exports.specialKeyTexts = {
-    CapsLock: 'Caps'
+    CapsLock: 'Caps',
+    Next: 'Dalej'
 };
 exports.notDisabledSpecialKeys = [
     'Enter',
