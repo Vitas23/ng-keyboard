@@ -66,7 +66,7 @@ export class NgVirtualKeyboardDirective {
   ngOnInit() {
     this.virtualKeyboardSubscription = this.virtualKeyboardService.next$.subscribe((next: boolean) => {
       this.emitter.emit('go-next');
-    });
+    })
   }
 
   /**

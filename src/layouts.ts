@@ -65,7 +65,7 @@ export const specialKeyIcons = {
 
 export const specialKeyTexts = {
   CapsLock: 'Caps',
-  Next: 'Dalej'
+  Next: 'Enter'
 };
 
 export const notDisabledSpecialKeys = [

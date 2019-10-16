@@ -146,7 +146,7 @@ exports.specialKeyIcons = {
 };
 exports.specialKeyTexts = {
     CapsLock: 'Caps',
-    Next: 'Dalej'
+    Next: 'Enter'
 };
 exports.notDisabledSpecialKeys = [
     'Enter',
