@@ -138,6 +138,10 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
       this.layout = keyboardCapsLockLayout(this.layout, capsLock);
     });
 
+    this.virtualKeyboardService.next$.subscribe((next: boolean) => {
+      console.log('xxxxx');
+    });
+
     this.virtualKeyboardService.caretPosition$.subscribe((caretPosition: number) => {
       this.caretPosition = caretPosition;
 
@@ -282,6 +286,9 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
         break;
       case 'CapsLock':
         this.virtualKeyboardService.toggleCapsLock();
+        break;
+      case 'Dalej':
+        this.virtualKeyboardService.clickNext();
         break;
       case 'Shift':
         this.virtualKeyboardService.toggleShift();

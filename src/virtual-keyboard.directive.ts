@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import {Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
@@ -23,6 +23,7 @@ export class NgVirtualKeyboardDirective {
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
   @Input('ng-virtual-keyboard-type') type: string;
+  @Output('ng-virtual-keyboard-emitter') emitter = new EventEmitter();
 
   @HostListener('window:blur')
   onWindowBlur() {

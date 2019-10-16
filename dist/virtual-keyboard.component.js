@@ -66,6 +66,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.virtualKeyboardService.capsLock$.subscribe(function (capsLock) {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
         });
+        this.virtualKeyboardService.next$.subscribe(function (next) {
+            console.log('xxxxx');
+        });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
             setTimeout(function () {
@@ -191,6 +194,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 break;
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
+                break;
+            case 'Dalej':
+                this.virtualKeyboardService.clickNext();
                 break;
             case 'Shift':
                 this.virtualKeyboardService.toggleShift();

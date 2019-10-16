@@ -104,10 +104,9 @@ exports.alphanumericNordicKeyboard = [
 exports.extendedKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Shift:2'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', '_', '+'],
-    ['ą', 'ć', 'ę', 'ó', 'ł', 'ź', 'ż', 'ń', 'ś', 'Spacer', 'Spacer', 'Spacer'],
-    ['Spacer', '@', 'SpaceBar:7', '#', 'Spacer:2'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ć', 'ę'],
+    ['z', 'c', 'v', 'b', 'n', 'm', 'ź', 'ż', 'ł', 'ó', 'ń', 'ś'],
+    ['@', '-', 'x', 'SpaceBar:4', '#', ',', '.', 'Dalej:2'],
 ];
 exports.extendedNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'Backspace:2'],
@@ -236,6 +235,7 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         this.dialog = dialog;
         this.opened = false;
         this.focus = true;
+        this.emitter = new core_1.EventEmitter();
     }
     NgVirtualKeyboardDirective.prototype.onWindowBlur = function () {
         this.focus = false;
@@ -334,6 +334,10 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         core_1.Input('ng-virtual-keyboard-type'),
         __metadata("design:type", String)
     ], NgVirtualKeyboardDirective.prototype, "type", void 0);
+    __decorate([
+        core_1.Output('ng-virtual-keyboard-emitter'),
+        __metadata("design:type", Object)
+    ], NgVirtualKeyboardDirective.prototype, "emitter", void 0);
     __decorate([
         core_1.HostListener('window:blur'),
         __metadata("design:type", Function),
@@ -442,6 +446,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         });
         this.virtualKeyboardService.capsLock$.subscribe(function (capsLock) {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
+        });
+        this.virtualKeyboardService.next$.subscribe(function (next) {
+            console.log('xxxxx');
         });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
@@ -569,6 +576,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
                 break;
+            case 'Dalej':
+                this.virtualKeyboardService.clickNext();
+                break;
             case 'Shift':
                 this.virtualKeyboardService.toggleShift();
                 break;
@@ -639,6 +649,7 @@ var VirtualKeyboardService = /** @class */ (function () {
     function VirtualKeyboardService() {
         this.shift$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
+        this.next$ = new ReplaySubject_1.ReplaySubject(1);
         this.caretPosition$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock = false;
         this.shift = false;
@@ -676,6 +687,12 @@ var VirtualKeyboardService = /** @class */ (function () {
     VirtualKeyboardService.prototype.toggleCapsLock = function () {
         this.capsLock = !this.capsLock;
         this.capsLock$.next(this.capsLock);
+    };
+    /**
+     * Click for CapsLock
+     */
+    VirtualKeyboardService.prototype.clickNext = function () {
+        this.next$.next(this.capsLock);
     };
     /**
      * Setter for caret position value.
