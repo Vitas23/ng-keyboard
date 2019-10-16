@@ -192,6 +192,10 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
                 break;
+            case 'Next':
+                this.close();
+                this.virtualKeyboardService.clickNext();
+                break;
             case 'Shift':
                 this.virtualKeyboardService.toggleShift();
                 break;

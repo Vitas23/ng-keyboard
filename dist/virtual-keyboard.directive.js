@@ -13,6 +13,7 @@ var core_1 = require("@angular/core");
 var material_1 = require("@angular/material");
 var virtual_keyboard_component_1 = require("./virtual-keyboard.component");
 var layouts_1 = require("./layouts");
+var virtual_keyboard_service_1 = require("./virtual-keyboard.service");
 var NgVirtualKeyboardDirective = /** @class */ (function () {
     /**
      * Constructor of the class.
@@ -20,11 +21,13 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
      * @param {ElementRef}  element
      * @param {MatDialog}    dialog
      */
-    function NgVirtualKeyboardDirective(element, dialog) {
+    function NgVirtualKeyboardDirective(element, dialog, virtualKeyboardService) {
         this.element = element;
         this.dialog = dialog;
+        this.virtualKeyboardService = virtualKeyboardService;
         this.opened = false;
         this.focus = true;
+        this.emitter = new core_1.EventEmitter();
     }
     NgVirtualKeyboardDirective.prototype.onWindowBlur = function () {
         this.focus = false;
@@ -40,6 +43,12 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
     };
     NgVirtualKeyboardDirective.prototype.onClick = function () {
         this.openKeyboard();
+    };
+    NgVirtualKeyboardDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this.virtualKeyboardSubscription = this.virtualKeyboardService.next$.subscribe(function (next) {
+            _this.emitter.emit('go-next');
+        });
     };
     /**
      * Method to open virtual keyboard
@@ -124,6 +133,10 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         __metadata("design:type", String)
     ], NgVirtualKeyboardDirective.prototype, "type", void 0);
     __decorate([
+        core_1.Output('ng-virtual-keyboard-emitter'),
+        __metadata("design:type", Object)
+    ], NgVirtualKeyboardDirective.prototype, "emitter", void 0);
+    __decorate([
         core_1.HostListener('window:blur'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -152,7 +165,8 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
             selector: '[ng-virtual-keyboard]'
         }),
         __metadata("design:paramtypes", [core_1.ElementRef,
-            material_1.MatDialog])
+            material_1.MatDialog,
+            virtual_keyboard_service_1.VirtualKeyboardService])
     ], NgVirtualKeyboardDirective);
     return NgVirtualKeyboardDirective;
 }());

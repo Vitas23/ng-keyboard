@@ -2,6 +2,7 @@ import { ReplaySubject } from "rxjs/internal/ReplaySubject";
 export declare class VirtualKeyboardService {
     shift$: ReplaySubject<boolean>;
     capsLock$: ReplaySubject<boolean>;
+    next$: ReplaySubject<boolean>;
     caretPosition$: ReplaySubject<number>;
     private capsLock;
     private shift;
@@ -25,6 +26,10 @@ export declare class VirtualKeyboardService {
      * Toggle for CapsLock
      */
     toggleCapsLock(): void;
+    /**
+     * Click for CapsLock
+     */
+    clickNext(): void;
     /**
      * Setter for caret position value.
      *

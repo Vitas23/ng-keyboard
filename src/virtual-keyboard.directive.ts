@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import {Directive, ElementRef, HostListener, Input, OnChanges, SimpleChanges} from '@angular/core';
+=======
+import {Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
+>>>>>>> 69fd83e88e0873b256b819a1007e6b32f657614f
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
@@ -11,6 +15,8 @@ import {
   numericKeyboard,
   phoneKeyboard
 } from './layouts';
+import {VirtualKeyboardService} from './virtual-keyboard.service';
+import {Subscription} from 'rxjs';
 
 @Directive({
   selector: '[ng-virtual-keyboard]'
@@ -19,12 +25,13 @@ import {
 export class NgVirtualKeyboardDirective implements OnChanges {
   private opened = false;
   private focus = true;
+  private virtualKeyboardSubscription: Subscription;
 
   @Input('ng-virtual-keyboard-layout') layout: KeyboardLayout|string;
   @Input('ng-virtual-keyboard-placeholder') placeholder: string;
   @Input('ng-virtual-keyboard-type') type: string;
   @Input('ng-virtual-keyboard-change') change: string;
-
+  @Output('ng-virtual-keyboard-emitter') emitter = new EventEmitter();
 
   @HostListener('window:blur')
   onWindowBlur() {
@@ -57,7 +64,15 @@ export class NgVirtualKeyboardDirective implements OnChanges {
   public constructor(
     private element: ElementRef,
     private dialog: MatDialog,
-  ) { }
+    private virtualKeyboardService: VirtualKeyboardService,
+  ) {
+  }
+
+  ngOnInit() {
+    this.virtualKeyboardSubscription = this.virtualKeyboardService.next$.subscribe((next: boolean) => {
+      this.emitter.emit('go-next');
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.dialog.closeAll();

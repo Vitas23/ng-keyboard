@@ -12,6 +12,7 @@ var VirtualKeyboardService = /** @class */ (function () {
     function VirtualKeyboardService() {
         this.shift$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
+        this.next$ = new ReplaySubject_1.ReplaySubject(1);
         this.caretPosition$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock = false;
         this.shift = false;
@@ -49,6 +50,12 @@ var VirtualKeyboardService = /** @class */ (function () {
     VirtualKeyboardService.prototype.toggleCapsLock = function () {
         this.capsLock = !this.capsLock;
         this.capsLock$.next(this.capsLock);
+    };
+    /**
+     * Click for CapsLock
+     */
+    VirtualKeyboardService.prototype.clickNext = function () {
+        this.next$.next(true);
     };
     /**
      * Setter for caret position value.

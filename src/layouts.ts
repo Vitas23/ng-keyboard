@@ -17,10 +17,9 @@ export const alphanumericNordicKeyboard: KeyboardLayout = [
 export const extendedKeyboard: KeyboardLayout = [
   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
   ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
-  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Shift:2'],
-  ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', '_', '+'],
-  ['ą', 'ć', 'ę', 'ó', 'ł', 'ź', 'ż', 'ń', 'ś', 'Spacer', 'Spacer', 'Spacer'],
-  ['Spacer', '@', 'SpaceBar:7', '#', 'Spacer:2'],
+  ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ć', 'ę'],
+  ['z', 'c', 'v', 'b', 'n', 'm',  'ź', 'ż', 'ł','ó','ń','ś'],
+  ['@', '-', 'x','SpaceBar:4', '#', ',', '.', 'Next:2'],
 ];
 
 export const extendedNordicKeyboard: KeyboardLayout = [
@@ -53,6 +52,7 @@ export const specialKeys: Array<string> = [
   'SpaceBar',
   'Spacer',
   'Shift',
+  'Next',
 ];
 
 export const specialKeyIcons = {
@@ -64,7 +64,8 @@ export const specialKeyIcons = {
 };
 
 export const specialKeyTexts = {
-  CapsLock: 'Caps'
+  CapsLock: 'Caps',
+  Next: 'Enter'
 };
 
 export const notDisabledSpecialKeys = [

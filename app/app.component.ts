@@ -102,5 +102,8 @@ export class AppComponent {
     setTimeout(() => {
       this.isVisible = false;
     }, 0);
+
+  public testevent(event) {
+    console.log(event);
   }
 }

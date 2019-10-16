@@ -7,7 +7,7 @@
 		exports["ng-virtual-keyboard"] = factory(require("@angular/core"), require("@angular/material"), require("@angular/common"), require("@angular/flex-layout"), require("@angular/forms"), require("rxjs/internal/ReplaySubject"));
 	else
 		root["ng-virtual-keyboard"] = factory(root["@angular/core"], root["@angular/material"], root["@angular/common"], root["@angular/flex-layout"], root["@angular/forms"], root["rxjs/internal/ReplaySubject"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -104,10 +104,9 @@ exports.alphanumericNordicKeyboard = [
 exports.extendedKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Spacer', 'Shift:2'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', '_', '+'],
-    ['ą', 'ć', 'ę', 'ó', 'ł', 'ź', 'ż', 'ń', 'ś', 'Spacer', 'Spacer', 'Spacer'],
-    ['Spacer', '@', 'SpaceBar:7', '#', 'Spacer:2'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ć', 'ę'],
+    ['z', 'c', 'v', 'b', 'n', 'm', 'ź', 'ż', 'ł', 'ó', 'ń', 'ś'],
+    ['@', '-', 'x', 'SpaceBar:4', '#', ',', '.', 'Next:2'],
 ];
 exports.extendedNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'Backspace:2'],
@@ -136,6 +135,7 @@ exports.specialKeys = [
     'SpaceBar',
     'Spacer',
     'Shift',
+    'Next',
 ];
 exports.specialKeyIcons = {
     Enter: 'keyboard_return',
@@ -145,7 +145,8 @@ exports.specialKeyIcons = {
     Shift: 'keyboard_capslock'
 };
 exports.specialKeyTexts = {
-    CapsLock: 'Caps'
+    CapsLock: 'Caps',
+    Next: 'Enter'
 };
 exports.notDisabledSpecialKeys = [
     'Enter',
@@ -200,12 +201,98 @@ exports.keyboardCapsLockLayout = keyboardCapsLockLayout;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(0);
+var ReplaySubject_1 = __webpack_require__(12);
+var VirtualKeyboardService = /** @class */ (function () {
+    function VirtualKeyboardService() {
+        this.shift$ = new ReplaySubject_1.ReplaySubject(1);
+        this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
+        this.next$ = new ReplaySubject_1.ReplaySubject(1);
+        this.caretPosition$ = new ReplaySubject_1.ReplaySubject(1);
+        this.capsLock = false;
+        this.shift = false;
+    }
+    /**
+     * Setter for Shift value, note that this also sets CapsLock value.
+     *
+     * @param {boolean} value
+     */
+    VirtualKeyboardService.prototype.setShift = function (value) {
+        this.shift = value;
+        this.shift$.next(this.shift);
+        this.setCapsLock(this.shift);
+    };
+    /**
+     * Setter for CapsLock value
+     *
+     * @param {boolean} value
+     */
+    VirtualKeyboardService.prototype.setCapsLock = function (value) {
+        this.capsLock = value;
+        this.capsLock$.next(value);
+    };
+    /**
+     * Toggle for Shift, note that this also toggles CapsLock
+     */
+    VirtualKeyboardService.prototype.toggleShift = function () {
+        this.shift = !this.shift;
+        this.shift$.next(this.shift);
+        this.setCapsLock(this.shift);
+    };
+    /**
+     * Toggle for CapsLock
+     */
+    VirtualKeyboardService.prototype.toggleCapsLock = function () {
+        this.capsLock = !this.capsLock;
+        this.capsLock$.next(this.capsLock);
+    };
+    /**
+     * Click for CapsLock
+     */
+    VirtualKeyboardService.prototype.clickNext = function () {
+        this.next$.next(true);
+    };
+    /**
+     * Setter for caret position value.
+     *
+     * @param {number}  position
+     */
+    VirtualKeyboardService.prototype.setCaretPosition = function (position) {
+        this.caretPosition$.next(position);
+    };
+    /**
+     * Method to reset Shift and CapsLock values to default ones.
+     */
+    VirtualKeyboardService.prototype.reset = function () {
+        this.setShift(false);
+    };
+    VirtualKeyboardService = __decorate([
+        core_1.Injectable()
+    ], VirtualKeyboardService);
+    return VirtualKeyboardService;
+}());
+exports.VirtualKeyboardService = VirtualKeyboardService;
+
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -221,9 +308,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var material_1 = __webpack_require__(2);
-var virtual_keyboard_component_1 = __webpack_require__(4);
+var material_1 = __webpack_require__(3);
+var virtual_keyboard_component_1 = __webpack_require__(5);
 var layouts_1 = __webpack_require__(1);
+var virtual_keyboard_service_1 = __webpack_require__(2);
 var NgVirtualKeyboardDirective = /** @class */ (function () {
     /**
      * Constructor of the class.
@@ -231,11 +319,13 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
      * @param {ElementRef}  element
      * @param {MatDialog}    dialog
      */
-    function NgVirtualKeyboardDirective(element, dialog) {
+    function NgVirtualKeyboardDirective(element, dialog, virtualKeyboardService) {
         this.element = element;
         this.dialog = dialog;
+        this.virtualKeyboardService = virtualKeyboardService;
         this.opened = false;
         this.focus = true;
+        this.emitter = new core_1.EventEmitter();
     }
     NgVirtualKeyboardDirective.prototype.onWindowBlur = function () {
         this.focus = false;
@@ -251,6 +341,12 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
     };
     NgVirtualKeyboardDirective.prototype.onClick = function () {
         this.openKeyboard();
+    };
+    NgVirtualKeyboardDirective.prototype.ngOnInit = function () {
+        var _this = this;
+        this.virtualKeyboardSubscription = this.virtualKeyboardService.next$.subscribe(function (next) {
+            _this.emitter.emit('go-next');
+        });
     };
     /**
      * Method to open virtual keyboard
@@ -335,6 +431,10 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         __metadata("design:type", String)
     ], NgVirtualKeyboardDirective.prototype, "type", void 0);
     __decorate([
+        core_1.Output('ng-virtual-keyboard-emitter'),
+        __metadata("design:type", Object)
+    ], NgVirtualKeyboardDirective.prototype, "emitter", void 0);
+    __decorate([
         core_1.HostListener('window:blur'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -363,7 +463,8 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
             selector: '[ng-virtual-keyboard]'
         }),
         __metadata("design:paramtypes", [core_1.ElementRef,
-            material_1.MatDialog])
+            material_1.MatDialog,
+            virtual_keyboard_service_1.VirtualKeyboardService])
     ], NgVirtualKeyboardDirective);
     return NgVirtualKeyboardDirective;
 }());
@@ -371,7 +472,7 @@ exports.NgVirtualKeyboardDirective = NgVirtualKeyboardDirective;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -387,9 +488,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var material_1 = __webpack_require__(2);
+var material_1 = __webpack_require__(3);
 var layouts_1 = __webpack_require__(1);
-var virtual_keyboard_service_1 = __webpack_require__(5);
+var virtual_keyboard_service_1 = __webpack_require__(2);
 var VirtualKeyboardComponent = /** @class */ (function () {
     /**
      * Constructor of the class.
@@ -569,6 +670,10 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
                 break;
+            case 'Next':
+                this.close();
+                this.virtualKeyboardService.clickNext();
+                break;
             case 'Shift':
                 this.virtualKeyboardService.toggleShift();
                 break;
@@ -621,85 +726,6 @@ exports.VirtualKeyboardComponent = VirtualKeyboardComponent;
 
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(0);
-var ReplaySubject_1 = __webpack_require__(12);
-var VirtualKeyboardService = /** @class */ (function () {
-    function VirtualKeyboardService() {
-        this.shift$ = new ReplaySubject_1.ReplaySubject(1);
-        this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
-        this.caretPosition$ = new ReplaySubject_1.ReplaySubject(1);
-        this.capsLock = false;
-        this.shift = false;
-    }
-    /**
-     * Setter for Shift value, note that this also sets CapsLock value.
-     *
-     * @param {boolean} value
-     */
-    VirtualKeyboardService.prototype.setShift = function (value) {
-        this.shift = value;
-        this.shift$.next(this.shift);
-        this.setCapsLock(this.shift);
-    };
-    /**
-     * Setter for CapsLock value
-     *
-     * @param {boolean} value
-     */
-    VirtualKeyboardService.prototype.setCapsLock = function (value) {
-        this.capsLock = value;
-        this.capsLock$.next(value);
-    };
-    /**
-     * Toggle for Shift, note that this also toggles CapsLock
-     */
-    VirtualKeyboardService.prototype.toggleShift = function () {
-        this.shift = !this.shift;
-        this.shift$.next(this.shift);
-        this.setCapsLock(this.shift);
-    };
-    /**
-     * Toggle for CapsLock
-     */
-    VirtualKeyboardService.prototype.toggleCapsLock = function () {
-        this.capsLock = !this.capsLock;
-        this.capsLock$.next(this.capsLock);
-    };
-    /**
-     * Setter for caret position value.
-     *
-     * @param {number}  position
-     */
-    VirtualKeyboardService.prototype.setCaretPosition = function (position) {
-        this.caretPosition$.next(position);
-    };
-    /**
-     * Method to reset Shift and CapsLock values to default ones.
-     */
-    VirtualKeyboardService.prototype.reset = function () {
-        this.setShift(false);
-    };
-    VirtualKeyboardService = __decorate([
-        core_1.Injectable()
-    ], VirtualKeyboardService);
-    return VirtualKeyboardService;
-}());
-exports.VirtualKeyboardService = VirtualKeyboardService;
-
-
-/***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -715,12 +741,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(9);
 var forms_1 = __webpack_require__(11);
-var material_1 = __webpack_require__(2);
+var material_1 = __webpack_require__(3);
 var flex_layout_1 = __webpack_require__(10);
-var virtual_keyboard_directive_1 = __webpack_require__(3);
-var virtual_keyboard_component_1 = __webpack_require__(4);
+var virtual_keyboard_directive_1 = __webpack_require__(4);
+var virtual_keyboard_component_1 = __webpack_require__(5);
 var virtual_keyboard_key_component_1 = __webpack_require__(8);
-var virtual_keyboard_service_1 = __webpack_require__(5);
+var virtual_keyboard_service_1 = __webpack_require__(2);
 var NgVirtualKeyboardModule = /** @class */ (function () {
     function NgVirtualKeyboardModule() {
     }
@@ -764,7 +790,7 @@ exports.NgVirtualKeyboardModule = NgVirtualKeyboardModule;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var virtual_keyboard_directive_1 = __webpack_require__(3);
+var virtual_keyboard_directive_1 = __webpack_require__(4);
 exports.NgVirtualKeyboardDirective = virtual_keyboard_directive_1.NgVirtualKeyboardDirective;
 var virtual_keyboard_module_1 = __webpack_require__(6);
 exports.NgVirtualKeyboardModule = virtual_keyboard_module_1.NgVirtualKeyboardModule;
