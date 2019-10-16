@@ -1,0 +1,36 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  padding: .5em 1em;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  flex: 1;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0 0 .38em;
+}
+
+h2 {
+  margin-top: .76em;
+}
+
+h4 {
+  margin-top: .38em;
+}
+
+pre {
+  border-left: 6px solid #505050;
+  padding: .38em .76em;
+  margin: 0 0 .38em .76em;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.badges {
+  a {
+    margin-right: .38em;
+  }
+}
