@@ -1,8 +1,8 @@
-import { ElementRef, EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { KeyboardLayout } from './layouts';
 import { VirtualKeyboardService } from './virtual-keyboard.service';
-export declare class NgVirtualKeyboardDirective {
+export declare class NgVirtualKeyboardDirective implements OnChanges {
     private element;
     private dialog;
     private virtualKeyboardService;
@@ -12,6 +12,7 @@ export declare class NgVirtualKeyboardDirective {
     layout: KeyboardLayout | string;
     placeholder: string;
     type: string;
+    change: string;
     emitter: EventEmitter<{}>;
     onWindowBlur(): void;
     onWindowFocus(): void;
@@ -25,6 +26,7 @@ export declare class NgVirtualKeyboardDirective {
      */
     constructor(element: ElementRef, dialog: MatDialog, virtualKeyboardService: VirtualKeyboardService);
     ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     /**
      * Method to open virtual keyboard
      */

@@ -348,6 +348,9 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
             _this.emitter.emit('go-next');
         });
     };
+    NgVirtualKeyboardDirective.prototype.ngOnChanges = function (changes) {
+        this.dialog.closeAll();
+    };
     /**
      * Method to open virtual keyboard
      */
@@ -430,6 +433,10 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         core_1.Input('ng-virtual-keyboard-type'),
         __metadata("design:type", String)
     ], NgVirtualKeyboardDirective.prototype, "type", void 0);
+    __decorate([
+        core_1.Input('ng-virtual-keyboard-change'),
+        __metadata("design:type", String)
+    ], NgVirtualKeyboardDirective.prototype, "change", void 0);
     __decorate([
         core_1.Output('ng-virtual-keyboard-emitter'),
         __metadata("design:type", Object)

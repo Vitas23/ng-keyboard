@@ -1,8 +1,13 @@
-<<<<<<< HEAD
-import {Directive, ElementRef, HostListener, Input, OnChanges, SimpleChanges} from '@angular/core';
-=======
-import {Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
->>>>>>> 69fd83e88e0873b256b819a1007e6b32f657614f
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { VirtualKeyboardComponent } from './virtual-keyboard.component';
