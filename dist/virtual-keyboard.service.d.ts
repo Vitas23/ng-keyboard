@@ -1,15 +1,12 @@
 import { ReplaySubject } from "rxjs/internal/ReplaySubject";
-import { MatDialogRef } from '@angular/material';
-import { VirtualKeyboardComponent } from './virtual-keyboard.component';
 export declare class VirtualKeyboardService {
-    private dialogRef;
     shift$: ReplaySubject<boolean>;
     capsLock$: ReplaySubject<boolean>;
     next$: ReplaySubject<boolean>;
+    closeAll$: ReplaySubject<boolean>;
     caretPosition$: ReplaySubject<number>;
     private capsLock;
     private shift;
-    constructor(dialogRef: MatDialogRef<VirtualKeyboardComponent>);
     /**
      * Setter for Shift value, note that this also sets CapsLock value.
      *
@@ -35,6 +32,10 @@ export declare class VirtualKeyboardService {
      */
     clickNext(): void;
     /**
+     * Click for CapsLock
+     */
+    clickCloseAll(): void;
+    /**
      * Setter for caret position value.
      *
      * @param {number}  position
@@ -44,5 +45,4 @@ export declare class VirtualKeyboardService {
      * Method to reset Shift and CapsLock values to default ones.
      */
     reset(): void;
-    closeAll(): void;
 }

@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject} from "rxjs/internal/ReplaySubject";
-import {MatDialogRef} from '@angular/material';
-import {VirtualKeyboardComponent} from './virtual-keyboard.component';
 
 @Injectable()
 export class VirtualKeyboardService {
   public shift$: ReplaySubject<boolean> = new ReplaySubject(1);
   public capsLock$: ReplaySubject<boolean> = new ReplaySubject(1);
   public next$: ReplaySubject<boolean> = new ReplaySubject(1);
+  public closeAll$: ReplaySubject<boolean> = new ReplaySubject(1);
   public caretPosition$: ReplaySubject<number> = new ReplaySubject(1);
 
   private capsLock = false;
   private shift = false;
 
-  constructor(
-    private dialogRef: MatDialogRef<VirtualKeyboardComponent>
-  ) {
-
-  }
 
   /**
    * Setter for Shift value, note that this also sets CapsLock value.
@@ -67,6 +61,13 @@ export class VirtualKeyboardService {
   }
 
   /**
+   * Click for CapsLock
+   */
+  public clickCloseAll() {
+    this.closeAll$.next(true);
+  }
+
+  /**
    * Setter for caret position value.
    *
    * @param {number}  position
@@ -75,14 +76,11 @@ export class VirtualKeyboardService {
     this.caretPosition$.next(position);
   }
 
+
   /**
    * Method to reset Shift and CapsLock values to default ones.
    */
   public reset() {
     this.setShift(false);
-  }
-
-  public closeAll() {
-    this.dialogRef.close()
   }
 }

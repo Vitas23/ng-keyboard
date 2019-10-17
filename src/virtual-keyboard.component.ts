@@ -139,7 +139,9 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
       this.layout = keyboardCapsLockLayout(this.layout, capsLock);
     });
 
-
+    this.virtualKeyboardService.closeAll$.subscribe((close: boolean) => {
+      this.dialogRef.close();
+    });
 
     this.virtualKeyboardService.caretPosition$.subscribe((caretPosition: number) => {
       this.caretPosition = caretPosition;

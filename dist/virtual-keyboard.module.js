@@ -36,7 +36,7 @@ var NgVirtualKeyboardModule = /** @class */ (function () {
                 material_1.MatButtonModule,
                 material_1.MatDialogModule,
                 material_1.MatIconModule,
-                material_1.MatInputModule,
+                material_1.MatInputModule
             ],
             entryComponents: [
                 virtual_keyboard_component_1.VirtualKeyboardComponent,

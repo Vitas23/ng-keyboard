@@ -66,6 +66,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.virtualKeyboardService.capsLock$.subscribe(function (capsLock) {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
         });
+        this.virtualKeyboardService.closeAll$.subscribe(function (close) {
+            _this.dialogRef.close();
+        });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
             setTimeout(function () {
