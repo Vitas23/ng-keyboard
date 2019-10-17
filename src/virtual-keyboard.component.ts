@@ -130,7 +130,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
     if (this._isInited) {
       this.close();
     }
-    
+
     setTimeout(() => {
       this.keyboardInput.nativeElement.focus();
     }, 0);
