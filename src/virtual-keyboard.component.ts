@@ -127,6 +127,10 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
    *  3) Reset of possible previously tracked caret position
    */
   public ngOnInit(): void {
+    if (this._isInited) {
+      this.close();
+    }
+    
     setTimeout(() => {
       this.keyboardInput.nativeElement.focus();
     }, 0);

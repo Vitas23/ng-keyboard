@@ -569,6 +569,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      */
     VirtualKeyboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (this._isInited) {
+            this.close();
+        }
         setTimeout(function () {
             _this.keyboardInput.nativeElement.focus();
         }, 0);
