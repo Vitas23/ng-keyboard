@@ -9,7 +9,7 @@ import { isSpacer, isSpecial, isColored, notDisabledSpecialKeys, specialKeyIcons
     <button
       mat-raised-button
       [ngClass] = " {'btn-lighter': colored } "
-      
+      color="primary"
    
       fxFlex="{{ flexValue }}"
       [class.spacer]="spacer"
