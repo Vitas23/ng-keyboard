@@ -106,7 +106,7 @@ exports.extendedKeyboard = [
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
     ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ę', 'ć'],
     ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'ż', 'ł', 'ó', 'ń', 'ś'],
-    ['ź', '-', '@', 'SpaceBar:5', ',', '.', 'Enter:2'],
+    ['@', '-', '_', 'SpaceBar:4', 'ź', ',', '.', 'Enter:2'],
 ];
 exports.extendedNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'Backspace:2'],
@@ -155,7 +155,7 @@ exports.notDisabledSpecialKeys = [
 ];
 exports.coloredKeys = [
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'ą', 'ę', 'ć', 'ż', 'ł', 'ó', 'ń', 'ś', 'ź', '-', '@', ',', '.'
+    'ą', 'ę', 'ć', 'ż', 'ł', 'ó', 'ń', 'ś', 'ź', '-', '@', ',', '.', '_'
 ];
 /**
  * Helper function to determine if given key is 'Colored' or not.
