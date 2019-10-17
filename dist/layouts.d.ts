@@ -18,6 +18,14 @@ export declare const specialKeyTexts: {
     Next: string;
 };
 export declare const notDisabledSpecialKeys: string[];
+export declare const coloredKeys: Array<string>;
+/**
+ * Helper function to determine if given key is 'Colored' or not.
+ *
+ * @param {string}  key
+ * @returns {boolean}
+ */
+export declare function isColored(key: string): boolean;
 /**
  * Helper function to determine if given key is 'Spacer' or not.
  *

@@ -4,6 +4,7 @@ export declare class VirtualKeyboardKeyComponent implements OnInit {
     key: string;
     disabled: boolean;
     keyPress: EventEmitter<KeyPressInterface>;
+    colored: boolean;
     special: boolean;
     spacer: boolean;
     flexValue: string;

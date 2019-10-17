@@ -15,9 +15,9 @@ exports.alphanumericNordicKeyboard = [
 exports.extendedKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace:2'],
     ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'CapsLock:2'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ć', 'ę'],
-    ['z', 'c', 'v', 'b', 'n', 'm', 'ź', 'ż', 'ł', 'ó', 'ń', 'ś'],
-    ['@', '-', 'x', 'SpaceBar:4', '#', ',', '.', 'Next:2'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ą', 'ę', 'ć'],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'ż', 'ł', 'ó', 'ń', 'ś'],
+    ['ź', '-', '@', 'SpaceBar:5', ',', '.', 'Enter:2'],
 ];
 exports.extendedNordicKeyboard = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'Backspace:2'],
@@ -64,6 +64,25 @@ exports.notDisabledSpecialKeys = [
     'Backspace',
     'Escape',
 ];
+exports.coloredKeys = [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'ą', 'ę', 'ć', 'ż', 'ł', 'ó', 'ń', 'ś', 'ź', '-', '@', ',', '.'
+];
+/**
+ * Helper function to determine if given key is 'Colored' or not.
+ *
+ * @param {string}  key
+ * @returns {boolean}
+ */
+function isColored(key) {
+    if (key.length > 0) {
+        return !!exports.coloredKeys.filter(function (coloredKey) {
+            return key === coloredKey;
+        }).length;
+    }
+    return false;
+}
+exports.isColored = isColored;
 /**
  * Helper function to determine if given key is 'Spacer' or not.
  *

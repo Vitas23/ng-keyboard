@@ -17,6 +17,7 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
      */
     function VirtualKeyboardKeyComponent() {
         this.keyPress = new core_1.EventEmitter();
+        this.colored = false;
         this.special = false;
         this.spacer = false;
     }
@@ -29,6 +30,7 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
     VirtualKeyboardKeyComponent.prototype.ngOnInit = function () {
         var multiplier = 1;
         var fix = 0;
+        this.colored = layouts_1.isColored(this.key);
         if (this.key.length > 1) {
             this.spacer = layouts_1.isSpacer(this.key);
             this.special = layouts_1.isSpecial(this.key);
@@ -91,8 +93,8 @@ var VirtualKeyboardKeyComponent = /** @class */ (function () {
     VirtualKeyboardKeyComponent = __decorate([
         core_1.Component({
             selector: 'virtual-keyboard-key',
-            template: "\n    <button\n      mat-raised-button\n      color=\"primary\"\n      fxFlex=\"{{ flexValue }}\"\n      [class.spacer]=\"spacer\"\n      [disabled]=\"isDisabled()\"\n      (click)=\"onKeyPress()\"\n    >\n      <span *ngIf=\"!special\">{{ keyValue }}</span>\n    \n      <span *ngIf=\"special\">\n        <mat-icon *ngIf=\"icon\">{{ icon }}</mat-icon>\n    \n        {{ text }}\n      </span>\n    </button>\n  ",
-            styles: ["\n    .mat-button,\n    .mat-icon-button,\n    .mat-raised-button {\n      min-width: 64px;\n      min-height: 64px;\n      padding: 0;\n      margin: 2px;\n      font-size: 32px;\n      line-height: 32px;\n    }\n    \n    .mat-button.spacer,\n    .mat-icon-button.spacer,\n    .mat-raised-button.spacer {\n      background-color: transparent;\n    }\n  "]
+            template: "\n    <button\n      mat-raised-button\n      [ngClass] = \" {'btn-lighter': colored } \"\n      \n   \n      fxFlex=\"{{ flexValue }}\"\n      [class.spacer]=\"spacer\"\n      [disabled]=\"isDisabled()\"\n      (click)=\"onKeyPress()\"\n    >\n      <span *ngIf=\"!special\">{{ keyValue }}</span>\n    \n      <span *ngIf=\"special\">\n        <mat-icon *ngIf=\"icon\">{{ icon }}</mat-icon>\n    \n        {{ text }}\n      </span>\n    </button>\n  ",
+            styles: ["\n    .mat-button,\n    .mat-icon-button,\n    .mat-raised-button {\n      min-width: 64px;\n      min-height: 64px;\n      padding: 0;\n      margin: 2px;\n      font-size: 32px;\n      line-height: 32px;\n    }\n\n    .mat-button.spacer,\n    .mat-icon-button.spacer,\n    .mat-raised-button.spacer {\n      background-color: transparent;\n    }\n  "]
         }),
         __metadata("design:paramtypes", [])
     ], VirtualKeyboardKeyComponent);

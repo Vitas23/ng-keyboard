@@ -1,14 +1,16 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { KeyPressInterface } from './key-press.interface';
-import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKeyTexts } from './layouts';
+import { isSpacer, isSpecial, isColored, notDisabledSpecialKeys, specialKeyIcons, specialKeyTexts } from './layouts';
 
 @Component({
   selector: 'virtual-keyboard-key',
   template: `
     <button
       mat-raised-button
-      color="primary"
+      [ngClass] = " {'btn-lighter': colored } "
+      
+   
       fxFlex="{{ flexValue }}"
       [class.spacer]="spacer"
       [disabled]="isDisabled()"
@@ -34,7 +36,7 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
       font-size: 32px;
       line-height: 32px;
     }
-    
+
     .mat-button.spacer,
     .mat-icon-button.spacer,
     .mat-raised-button.spacer {
@@ -43,11 +45,14 @@ import { isSpacer, isSpecial, notDisabledSpecialKeys, specialKeyIcons, specialKe
   `]
 })
 
+
+
 export class VirtualKeyboardKeyComponent implements OnInit {
   @Input() key: string;
   @Input() disabled: boolean;
   @Output() keyPress = new EventEmitter<KeyPressInterface>();
 
+  public colored = false;
   public special = false;
   public spacer = false;
   public flexValue: string;
@@ -69,7 +74,7 @@ export class VirtualKeyboardKeyComponent implements OnInit {
   public ngOnInit(): void {
     let multiplier = 1;
     let fix = 0;
-
+    this.colored = isColored(this.key);
     if (this.key.length > 1) {
       this.spacer = isSpacer(this.key);
       this.special = isSpecial(this.key);
