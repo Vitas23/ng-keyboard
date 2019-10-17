@@ -24,6 +24,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this.virtualKeyboardService = virtualKeyboardService;
         this.shift = false;
+        this._isInited = false;
     }
     VirtualKeyboardComponent_1 = VirtualKeyboardComponent;
     /**
@@ -67,7 +68,9 @@ var VirtualKeyboardComponent = /** @class */ (function () {
             _this.layout = layouts_1.keyboardCapsLockLayout(_this.layout, capsLock);
         });
         this.virtualKeyboardService.closeAll$.subscribe(function (close) {
-            _this.dialogRef.close();
+            if (_this._isInited) {
+                _this.close();
+            }
         });
         this.virtualKeyboardService.caretPosition$.subscribe(function (caretPosition) {
             _this.caretPosition = caretPosition;
@@ -80,6 +83,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
         }
         this.maxLength = this.inputElement.nativeElement.maxLength > 0 ? this.inputElement.nativeElement.maxLength : '';
         this.checkDisabled();
+        this._isInited = true;
     };
     /**
      * On destroy life cycle hook, in this we want to reset virtual keyboard service states on following:
@@ -93,6 +97,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      * Method to close virtual keyboard dialog
      */
     VirtualKeyboardComponent.prototype.close = function () {
+        this._isInited = false;
         this.dialogRef.close();
     };
     /**

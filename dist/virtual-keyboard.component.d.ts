@@ -15,6 +15,7 @@ export declare class VirtualKeyboardComponent implements OnInit, OnDestroy {
     maxLength: number | string;
     private caretPosition;
     private shift;
+    private _isInited;
     /**
      * Helper method to set cursor in input to correct place.
      *

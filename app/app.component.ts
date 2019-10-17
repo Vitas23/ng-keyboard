@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core'
+import {VirtualKeyboardService} from '../src/virtual-keyboard.service';
 
 @Component({
   selector: 'my-app',
@@ -8,6 +9,7 @@ import { Component, ViewEncapsulation } from '@angular/core'
 })
 
 export class AppComponent {
+  constructor(public _vks: VirtualKeyboardService){}
   public layouts = [
     {
       name: 'Alphanumeric',
@@ -97,11 +99,8 @@ export class AppComponent {
   }
 
   public closeKeyboard() {
-    this.isVisible = true;
-
-    setTimeout(() => {
-      this.isVisible = false;
-    }, 0);
+    console.log('zamykam');
+    this._vks.clickCloseAll();
 
   }
 

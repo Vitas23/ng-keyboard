@@ -79,7 +79,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
 
   private caretPosition: number;
   private shift = false;
-
+  private _isInited = false;
   /**
    * Helper method to set cursor in input to correct place.
    *
@@ -140,7 +140,9 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
     });
 
     this.virtualKeyboardService.closeAll$.subscribe((close: boolean) => {
-      this.dialogRef.close();
+      if (this._isInited) {
+        this.close();
+      }
     });
 
     this.virtualKeyboardService.caretPosition$.subscribe((caretPosition: number) => {
@@ -158,6 +160,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
     this.maxLength = this.inputElement.nativeElement.maxLength > 0 ? this.inputElement.nativeElement.maxLength : '';
 
     this.checkDisabled();
+    this._isInited = true;
   }
 
   /**
@@ -173,6 +176,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
    * Method to close virtual keyboard dialog
    */
   public close(): void {
+    this._isInited = false;
     this.dialogRef.close();
   }
 

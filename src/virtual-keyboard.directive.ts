@@ -91,8 +91,8 @@ export class NgVirtualKeyboardDirective implements OnChanges {
       this.opened = true;
 
       let dialogRef: MatDialogRef<VirtualKeyboardComponent>;
-
       dialogRef = this.dialog.open(VirtualKeyboardComponent);
+
       dialogRef.componentInstance.inputElement = this.element;
       dialogRef.componentInstance.layout = this.getLayout();
       dialogRef.componentInstance.placeholder = this.getPlaceHolder();
