@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject} from "rxjs/internal/ReplaySubject";
+import {MatDialogRef} from '@angular/material';
+import {VirtualKeyboardComponent} from './virtual-keyboard.component';
 
 @Injectable()
 export class VirtualKeyboardService {
@@ -10,6 +12,12 @@ export class VirtualKeyboardService {
 
   private capsLock = false;
   private shift = false;
+
+  constructor(
+    private dialogRef: MatDialogRef<VirtualKeyboardComponent>
+  ) {
+
+  }
 
   /**
    * Setter for Shift value, note that this also sets CapsLock value.
@@ -72,5 +80,9 @@ export class VirtualKeyboardService {
    */
   public reset() {
     this.setShift(false);
+  }
+
+  public closeAll() {
+    this.dialogRef.close()
   }
 }

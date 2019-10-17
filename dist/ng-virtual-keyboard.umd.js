@@ -7,7 +7,7 @@
 		exports["ng-virtual-keyboard"] = factory(require("@angular/core"), require("@angular/material"), require("@angular/common"), require("@angular/flex-layout"), require("@angular/forms"), require("rxjs/internal/ReplaySubject"));
 	else
 		root["ng-virtual-keyboard"] = factory(root["@angular/core"], root["@angular/material"], root["@angular/common"], root["@angular/flex-layout"], root["@angular/forms"], root["rxjs/internal/ReplaySubject"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_10__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_12__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -84,6 +84,12 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -219,7 +225,7 @@ exports.keyboardCapsLockLayout = keyboardCapsLockLayout;
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -230,11 +236,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var ReplaySubject_1 = __webpack_require__(12);
+var material_1 = __webpack_require__(1);
 var VirtualKeyboardService = /** @class */ (function () {
-    function VirtualKeyboardService() {
+    function VirtualKeyboardService(dialogRef) {
+        this.dialogRef = dialogRef;
         this.shift$ = new ReplaySubject_1.ReplaySubject(1);
         this.capsLock$ = new ReplaySubject_1.ReplaySubject(1);
         this.next$ = new ReplaySubject_1.ReplaySubject(1);
@@ -296,19 +307,17 @@ var VirtualKeyboardService = /** @class */ (function () {
     VirtualKeyboardService.prototype.reset = function () {
         this.setShift(false);
     };
+    VirtualKeyboardService.prototype.closeAll = function () {
+        this.dialogRef.close();
+    };
     VirtualKeyboardService = __decorate([
-        core_1.Injectable()
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [material_1.MatDialogRef])
     ], VirtualKeyboardService);
     return VirtualKeyboardService;
 }());
 exports.VirtualKeyboardService = VirtualKeyboardService;
 
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }),
 /* 4 */
@@ -327,10 +336,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var material_1 = __webpack_require__(3);
+var material_1 = __webpack_require__(1);
 var virtual_keyboard_component_1 = __webpack_require__(5);
-var layouts_1 = __webpack_require__(1);
-var virtual_keyboard_service_1 = __webpack_require__(2);
+var layouts_1 = __webpack_require__(2);
+var virtual_keyboard_service_1 = __webpack_require__(3);
 var NgVirtualKeyboardDirective = /** @class */ (function () {
     /**
      * Constructor of the class.
@@ -514,9 +523,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var material_1 = __webpack_require__(3);
-var layouts_1 = __webpack_require__(1);
-var virtual_keyboard_service_1 = __webpack_require__(2);
+var material_1 = __webpack_require__(1);
+var layouts_1 = __webpack_require__(2);
+var virtual_keyboard_service_1 = __webpack_require__(3);
 var VirtualKeyboardComponent = /** @class */ (function () {
     /**
      * Constructor of the class.
@@ -767,12 +776,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var common_1 = __webpack_require__(9);
 var forms_1 = __webpack_require__(11);
-var material_1 = __webpack_require__(3);
+var material_1 = __webpack_require__(1);
 var flex_layout_1 = __webpack_require__(10);
 var virtual_keyboard_directive_1 = __webpack_require__(4);
 var virtual_keyboard_component_1 = __webpack_require__(5);
 var virtual_keyboard_key_component_1 = __webpack_require__(8);
-var virtual_keyboard_service_1 = __webpack_require__(2);
+var virtual_keyboard_service_1 = __webpack_require__(3);
 var NgVirtualKeyboardModule = /** @class */ (function () {
     function NgVirtualKeyboardModule() {
     }
@@ -839,7 +848,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var layouts_1 = __webpack_require__(1);
+var layouts_1 = __webpack_require__(2);
 var VirtualKeyboardKeyComponent = /** @class */ (function () {
     /**
      * Constructor of the class.
