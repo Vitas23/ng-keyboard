@@ -105,6 +105,6 @@ export class AppComponent {
   }
 
   public testevent(event) {
-    console.log(event);
+    console.log('xxxx', event);
   }
 }

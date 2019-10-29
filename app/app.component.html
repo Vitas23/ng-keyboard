@@ -102,6 +102,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
               ng-virtual-keyboard
               (ng-virtual-keyboard-emitter)="testevent($event)"
               [ng-virtual-keyboard-layout]="layout.layout"
+                   (keypress)="testevent(event)"
             />
           </mat-form-field>
 
@@ -110,6 +111,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
               matInput
               ng-virtual-keyboard
               [ng-virtual-keyboard-layout]="layout.layout"
+                   (keypress)="testevent(event)"
             />
           </mat-form-field>
 
@@ -119,6 +121,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
               ng-virtual-keyboard
               [ng-virtual-keyboard-layout]="layout.layout"
               [ng-virtual-keyboard-placeholder]="layout.placeholderCustom"
+                   (keypress)="testevent(event)"
             />
           </mat-form-field>
 
@@ -127,6 +130,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
               matInput
               ng-virtual-keyboard
               [ng-virtual-keyboard-layout]="layout.layout"
+                   (keypress)="testevent(event)"
             />
           </mat-form-field>
 
@@ -137,6 +141,8 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
               ng-virtual-keyboard
               ng-virtual-keyboard-type="password"
               [ng-virtual-keyboard-layout]="layout.layout"
+                   (keypress)="testevent(event)"
+
             />
           </mat-form-field>
         </div>
@@ -150,6 +156,7 @@ export class AppModule {{ '{' }} {{ '}' }}</code></pre>
             matInput
             ng-virtual-keyboard
             [ng-virtual-keyboard-layout]="customLayout"
+                 (keypress)="testevent(event)"
           />
         </mat-form-field>
       </div>
