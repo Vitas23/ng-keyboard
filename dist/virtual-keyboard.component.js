@@ -122,7 +122,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
     VirtualKeyboardComponent.prototype.keyPress = function (event) {
         if (event.special) {
             this.handleSpecialKey(event);
-            // this.dispatchEvents(event);
+            this.dispatchEvents(event);
         }
         else {
             this.handleNormalKey(event.keyValue);
