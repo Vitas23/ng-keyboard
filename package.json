@@ -1,6 +1,6 @@
 {
   "name": "@protacon/ng-virtual-keyboard",
-  "version": "0.8.0-disable",
+  "version": "0.8.1",
   "description": "Virtual Keyboard for Angular applications",
   "main": "dist/ng-virtual-keyboard.umd.js",
   "module": "dist/index.js",

@@ -363,10 +363,10 @@ var NgVirtualKeyboardDirective = /** @class */ (function () {
         }, 0);
     };
     NgVirtualKeyboardDirective.prototype.onFocus = function () {
-        // this.openKeyboard();
+        this.openKeyboard();
     };
     NgVirtualKeyboardDirective.prototype.onClick = function () {
-        // this.openKeyboard();
+        this.openKeyboard();
     };
     NgVirtualKeyboardDirective.prototype.ngOnInit = function () {
         var _this = this;
