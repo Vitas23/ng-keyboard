@@ -52,12 +52,12 @@ export class NgVirtualKeyboardDirective implements OnChanges {
 
   @HostListener('focus')
   onFocus() {
-    this.openKeyboard();
+    // this.openKeyboard();
   }
 
   @HostListener('click')
   onClick() {
-    this.openKeyboard();
+    // this.openKeyboard();
   }
 
   /**
