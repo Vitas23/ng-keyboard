@@ -276,6 +276,10 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
         console.log("Backspace start");
         const currentValue = this.inputElement.nativeElement.value;
 
+        //
+        //  Disabled feature because BACKSPACE PROBLEM on machine-hall-app
+        //
+
         // We have a caret position, so we need to remove char from that position
         // if (!isNaN(this.caretPosition)) {
         //   console.log("!isNaN(this.caretPosition");
@@ -290,9 +294,7 @@ export class VirtualKeyboardComponent implements OnInit, OnDestroy {
         //     this.virtualKeyboardService.setCaretPosition(this.caretPosition - 1);
         //   }
         // } else {
-          console.log("substring before");
           this.inputElement.nativeElement.value = currentValue.substring(0, currentValue.length - 1);
-          console.log("substring after");
         // }
 
         // Set focus to keyboard input
