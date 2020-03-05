@@ -120,6 +120,7 @@ var VirtualKeyboardComponent = /** @class */ (function () {
      * @param {KeyPressInterface} event
      */
     VirtualKeyboardComponent.prototype.keyPress = function (event) {
+        console.log(event);
         if (event.special) {
             this.handleSpecialKey(event);
             this.dispatchEvents(event);
@@ -183,23 +184,28 @@ var VirtualKeyboardComponent = /** @class */ (function () {
                 this.close();
                 break;
             case 'Backspace':
+                console.log("Backspace start");
                 var currentValue = this.inputElement.nativeElement.value;
                 // We have a caret position, so we need to remove char from that position
-                if (!isNaN(this.caretPosition)) {
-                    // And current position must > 0
-                    if (this.caretPosition > 0) {
-                        var start = currentValue.slice(0, this.caretPosition - 1);
-                        var end = currentValue.slice(this.caretPosition);
-                        this.inputElement.nativeElement.value = "" + start + end;
-                        // Update caret position
-                        this.virtualKeyboardService.setCaretPosition(this.caretPosition - 1);
-                    }
-                }
-                else {
-                    this.inputElement.nativeElement.value = currentValue.substring(0, currentValue.length - 1);
-                }
+                // if (!isNaN(this.caretPosition)) {
+                //   console.log("!isNaN(this.caretPosition");
+                //   // And current position must > 0
+                //   if (this.caretPosition > 0) {
+                //     const start = currentValue.slice(0, this.caretPosition - 1);
+                //     const end = currentValue.slice(this.caretPosition);
+                //
+                //     this.inputElement.nativeElement.value = `${start}${end}`;
+                //
+                //     // Update caret position
+                //     this.virtualKeyboardService.setCaretPosition(this.caretPosition - 1);
+                //   }
+                // } else {
+                console.log("substring before");
+                this.inputElement.nativeElement.value = currentValue.substring(0, currentValue.length - 1);
+                console.log("substring after");
+                // }
                 // Set focus to keyboard input
-                this.keyboardInput.nativeElement.focus();
+                // this.keyboardInput.nativeElement.focus();
                 break;
             case 'CapsLock':
                 this.virtualKeyboardService.toggleCapsLock();
