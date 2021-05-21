@@ -2,7 +2,7 @@
 Virtual Keyboard for Angular applications
 
 ## Install
-### Step 1: Install http://gitlab.sysmakers.com:81/jwitas/ng-virtual-keyboard.git
+### Step 1: Install https://github.com/Vitas23/ng-keyboard
 ```bash
 $ npm install --save http://gitlab.sysmakers.com:81/jwitas/ng-virtual-keyboard.git
 ```
